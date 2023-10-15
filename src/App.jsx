@@ -1,27 +1,22 @@
-import { useState } from "react";
+import React from 'react'
+import axios from 'axios'
 
-// display component
-const Display = ({counter}) => <div> {counter} </div>
 
-// button component
-const Button = ({eventFunc, btnName}) => <button onClick={eventFunc}> {btnName} </button>
+const getData = async (id) => {
+  const resultUser = await axios.get(`https://jsonplaceholder.typicode.com/users/${id}`)
+  const resultPosts = await axios.get(`https://jsonplaceholder.typicode.com/users/${id}`)
+  const user = resultUser.data
+  const posts = resultPosts.data
+  return {user, posts}
+}
 
-const App = () => {
-  const [counter, setCounter] = useState(0);
-
-  // functions declared
-  const plus = () => setCounter(counter + 1);
-  const minus = () => setCounter(counter - 1);
-  const reset = () => setCounter(0)
-
-  return (
-    <>
-      <Display counter={counter} />
-      <Button eventFunc={plus} btnName={"+"} />
-      <Button eventFunc={minus} btnName={"-"} />
-      <Button eventFunc={reset} btnName={"Reset"} />
-    </>
+function App() {
+  getData(1).then(data => console.log(data))
+  return(
+    <ul>
+      Text
+    </ul>
   )
 }
 
-export default App;
+export default App
